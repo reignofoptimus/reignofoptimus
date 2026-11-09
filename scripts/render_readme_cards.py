@@ -3,7 +3,7 @@
 Render the profile README's cards as animated SVGs into cards/.
 
 Design: "Three Worlds", matched to Nirmal Madhu (Paper & Ink aesthetic,
-Instrument Serif, Geist, Geist Mono; BUILD blue, LEAD coral, LEARN yellow).
+Instrument Serif, Geist, Geist Mono; PORTFOLIO blue, LINKEDIN coral, EMAIL yellow).
 
 Every card is a standalone SVG shown through <img>, utilizing inline CSS animations,
 SMIL, and subset WOFF fonts embedded as base64 data URIs.
@@ -32,9 +32,9 @@ INK = "#111111"
 INK_SOFT = "#3a3a3c"
 MUTED = "#6e6e73"
 RULE = "#dcdcd7"
-TECH = "#2f55ff"       # Blue (BUILD)
-STUDIO = "#ef3b2d"     # Coral (LEAD)
-LEARN = "#ffc81a"      # Yellow (LEARN)
+TECH = "#2f55ff"       # Blue (PORTFOLIO)
+STUDIO = "#ef3b2d"     # Coral (LINKEDIN)
+LEARN = "#ffc81a"      # Yellow (EMAIL)
 W = 880                # full card width, GitHub's README column at 100%
 
 SERIF = "'Instrument Serif', Georgia, serif"
@@ -71,7 +71,7 @@ BASE_CSS = """
 @keyframes sheen{0%{transform:translateX(-260px) skewX(-20deg)}22%,100%{transform:translateX(420px) skewX(-20deg)}}
 @keyframes ring{0%{opacity:.7;transform:scale(.2)}100%{opacity:0;transform:scale(2.4)}}
 .ti{opacity:0;transform-box:fill-box;transform-origin:50% 60%;animation:tilein 1.1s cubic-bezier(.2,.8,.2,1) both}
-.sl{opacity:0;transform-box:fill-box;animation:slidein .6s cubic-bezier(.2,.8,.2,1) both}
+.sl{opacity:0;transform-box:fill-box;animation:slidein .6s cubic-bezier(.2,.7,.2,1) both}
 .ai{opacity:0;transform-box:fill-box;animation:arrowin .7s cubic-bezier(.2,.7,.2,1) both}
 .ro{transform-box:fill-box;animation:roll .8s cubic-bezier(.15,.8,.2,1) both}
 .sh{animation:sheen 5s ease-in-out infinite}
@@ -191,31 +191,11 @@ def hero():
                           "Nirmal Madhu. B.Tech CS & Design student at FISAT. Full-stack developer and AI systems builder."))
 
 
-# ---- 2 · world tiles ----------------------------------------------------------
+# ---- 2 · contact tiles --------------------------------------------------------
 TILE_W, TILE_H = 880 / 3 - 8, 210
 
 
-def count_up(num, word, x, y, attrs, begin, dur=1.1, frames=18):
-    m = re.match(r"([\d.]+)(.*)", num)
-    tail = f' <tspan font-style="italic">{escape(word)}</tspan>'
-    if not m:
-        return f'<text x="{x}" y="{y}" {attrs}>{escape(num)}{tail}</text>'
-    val, suf = float(m.group(1)), m.group(2)
-    dec = len(m.group(1).split(".")[1]) if "." in m.group(1) else 0
-    if os.environ.get("STATIC"):
-        return f'<text x="{x}" y="{y}" {attrs}>{escape(num)}{tail}</text>'
-    out = []
-    for i in range(frames + 1):
-        e = 1 - (1 - i / frames) ** 3
-        txt = num if i == frames else f"{val * e:.{dec}f}{suf}"
-        on = begin + dur * i / frames
-        off = "" if i == frames else f'<set attributeName="opacity" to="0" begin="{begin + dur * (i + 1) / frames:.3f}s"/>'
-        out.append(f'<text x="{x}" y="{y}" {attrs} opacity="0">{escape(txt)}{tail}'
-                   f'<set attributeName="opacity" to="1" begin="{on:.3f}s"/>{off}</text>')
-    return "".join(out)
-
-
-def tile(name, label, color, on, num, word, blurb, delay, pos):
+def tile(name, label, color, on, title_lead, title_italic, blurb, delay, pos):
     lines = wrap(blurb, 34)
     blurb_svg = "".join(
         f'<text class="r" {d(delay + 0.75 + i * 0.1)} x="24" y="{150 + i * 20}" font-family="{SANS}" '
@@ -238,13 +218,13 @@ def tile(name, label, color, on, num, word, blurb, delay, pos):
   <text class="sl" {d(delay + 0.35)} x="24" y="38" font-family="{MONO}" font-size="12" letter-spacing="1.2" fill="{on}">{label}</text>
   <g class="ai" {d(delay + 0.5)}><text class="n" style="animation-delay:{delay + 1.3:.2f}s" x="250" y="38" font-family="{MONO}" font-size="14" fill="{on}">&#8594;</text></g>
   <g clip-path="url(#slot)"><g class="ro" {d(delay + 0.45)}>
-    {count_up(num, word, 22, 112, f'font-family="{SERIF}" font-size="44" fill="{on}"', delay + 0.45)}
+    <text x="22" y="110" font-family="{SERIF}" font-size="38" fill="{on}">{escape(title_lead)} <tspan font-style="italic">{escape(title_italic)}</tspan></text>
   </g></g>
   {blurb_svg}
 </g>
 """
     write(f"{name}.svg", svg(TILE_W, TILE_H, body, ["serif", "serif-i", "sans", "mono"],
-                             f"{label}: {num} {word}. {blurb}", left=4 * pos, right=8 - 4 * pos))
+                             f"{label}: {title_lead} {title_italic}. {blurb}", left=4 * pos, right=8 - 4 * pos))
 
 
 # ---- 3 · activity (monthly bars) ------------------------------------------------
@@ -314,7 +294,7 @@ REPO_W, REPO_H = 880 / 3 - 8, 176
 REPOS = [
     ("HireSense-AI", "AI-powered resume analysis and candidate ranking intelligence platform.", "Python", TECH),
     ("FinAudit-AI", "Automated financial audit, discrepancy detection, and intelligent analytics.", "TypeScript", STUDIO),
-    ("SkyVoyage-Flight-Booking", "Seamless flight reservation, interactive seat selection and booking platform.", "TypeScript", LEARN),
+    ("AccessGrid", "Modular, accessible grid layout and responsive UI navigation system.", "JavaScript", LEARN),
 ]
 
 
@@ -418,12 +398,12 @@ if __name__ == "__main__":
         exit(1)
     data = json.load(open(DATA, encoding="utf-8"))
     hero()
-    tile("build", "BUILD", TECH, "#ffffff", "3+", "projects",
-         "Full-stack web apps, AI systems, and interactive 3D Three.js experiences.", 3.1, 0)
-    tile("lead", "LEAD", STUDIO, "#ffffff", "IEEE", "chair",
-         "Chair of IEEE Computer Society FISAT. Leading technical events & workshops.", 3.35, 1)
-    tile("learn", "LEARN", LEARN, INK, "AI/ML", "intern",
-         "Ex-Intern @ SRAI Smart Solutions, NPTEL Algorithms & FISAT CS & Design.", 3.6, 2)
+    tile("portfolio", "PORTFOLIO", TECH, "#ffffff", "Live", "portfolio",
+         "Explore interactive 3D web experiences, projects, and creative engineering.", 3.1, 0)
+    tile("linkedin", "LINKEDIN", STUDIO, "#ffffff", "Let's", "connect",
+         "Professional network, IEEE leadership, and discussions on opportunities.", 3.35, 1)
+    tile("email", "EMAIL", LEARN, INK, "Say", "hello",
+         "Open to full-stack & AI roles, internships, and engineering collaborations.", 3.6, 2)
     activity(data)
     stars = repo_stars()
     for i, (name, desc, lang, color) in enumerate(REPOS):
