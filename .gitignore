@@ -1,0 +1,8 @@
+# Reference files
+github upgrade.pdf
+details of me.txt
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
