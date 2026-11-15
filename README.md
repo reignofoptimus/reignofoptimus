@@ -8,7 +8,7 @@
 <img src="./cards/activity.svg" width="100%" alt="Contributions in the last 12 months, by month, with streak and busiest day" /><br>
 <a href="https://nirmalmadhu.vercel.app"><img src="./cards/portfolio.svg" width="33.333%" alt="PORTFOLIO: Live portfolio" /></a><a href="https://linkedin.com/in/nirmal-madhu-523642361"><img src="./cards/linkedin.svg" width="33.333%" alt="LINKEDIN: Let's connect" /></a><a href="mailto:nirmalmadhu2005@gmail.com"><img src="./cards/email.svg" width="33.333%" alt="EMAIL: Say hello" /></a><br>
 <picture><source media="(prefers-color-scheme: dark)" srcset="./cards/title-coding-dark.svg" /><img src="./cards/title-coding-light.svg" width="100%" alt="What I'm coding" /></picture><br>
-<a href="https://github.com/reignofoptimus/HireSense-AI"><img src="./cards/repo-HireSense-AI.svg" width="33.333%" alt="HireSense-AI" /></a><a href="https://github.com/reignofoptimus/FinAudit-AI"><img src="./cards/repo-FinAudit-AI.svg" width="33.333%" alt="FinAudit-AI" /></a><a href="https://github.com/reignofoptimus/AccessGrid"><img src="./cards/repo-AccessGrid.svg" width="33.333%" alt="AccessGrid" /></a>
+<a href="https://github.com/reignofoptimus/HireSense-AI"><img src="./cards/repo-HireSense-AI.svg" width="33.333%" alt="HireSense-AI" /></a><a href="https://finaudit-ai-lemon.vercel.app/"><img src="./cards/repo-FinAudit-AI.svg" width="33.333%" alt="FinAudit-AI Live Demo" /></a><a href="https://github.com/reignofoptimus/AccessGrid"><img src="./cards/repo-AccessGrid.svg" width="33.333%" alt="AccessGrid" /></a>
 </div>
 
 <p align="center">

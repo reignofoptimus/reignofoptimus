@@ -292,15 +292,15 @@ def activity(data):
 # ---- 4 · repo cards -----------------------------------------------------------
 REPO_W, REPO_H = 880 / 3 - 8, 176
 REPOS = [
-    ("HireSense-AI", "AI-powered resume analysis and candidate ranking intelligence platform.", "Python", TECH),
-    ("FinAudit-AI", "Automated financial audit, discrepancy detection, and intelligent analytics.", "TypeScript", STUDIO),
-    ("AccessGrid", "Modular, accessible grid layout and responsive UI navigation system.", "JavaScript", LEARN),
+    ("HireSense-AI", "AI-powered resume analysis and candidate ranking intelligence platform.", "Python", TECH, None),
+    ("FinAudit-AI", "Automated financial audit, discrepancy detection, and intelligent analytics.", "TypeScript", STUDIO, "TypeScript  ·  ↗ live demo"),
+    ("AccessGrid", "Modular, accessible grid layout and responsive UI navigation system.", "JavaScript", LEARN, None),
 ]
 
 
-def repo_card(i, name, desc, lang, color, stars):
+def repo_card(i, name, desc, lang, color, stars, custom_meta=None):
     delay = 4.6 + i * 0.12
-    meta = f"{lang}  ·  ★ {stars}" if stars else f"{lang}  ·  live"
+    meta = custom_meta if custom_meta else (f"{lang}  ·  ★ {stars}" if stars else f"{lang}  ·  live")
     body = f"""
 <rect width="{REPO_W}" height="{REPO_H}" rx="14" fill="{PAPER}"/>
 <g class="r" {d(delay)}>
@@ -406,8 +406,8 @@ if __name__ == "__main__":
          "Open to full-stack & AI roles, internships, and engineering collaborations.", 3.6, 2)
     activity(data)
     stars = repo_stars()
-    for i, (name, desc, lang, color) in enumerate(REPOS):
-        repo_card(i, name, desc, lang, color, stars.get(name, 0))
+    for i, (name, desc, lang, color, custom_meta) in enumerate(REPOS):
+        repo_card(i, name, desc, lang, color, stars.get(name, 0), custom_meta)
     section_title("What I'm", "coding", "dark")
     section_title("What I'm", "coding", "light")
     heatmap(data)
