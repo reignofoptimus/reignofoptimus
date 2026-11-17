@@ -294,7 +294,7 @@ REPO_W, REPO_H = 880 / 3 - 8, 176
 REPOS = [
     ("HireSense-AI", "AI-powered resume analysis and candidate ranking intelligence platform.", "Python", TECH, None),
     ("FinAudit-AI", "Automated financial audit, discrepancy detection, and intelligent analytics.", "TypeScript", STUDIO, "TypeScript  ·  ↗ live demo"),
-    ("AccessGrid", "Modular, accessible grid layout and responsive UI navigation system.", "JavaScript", LEARN, None),
+    ("AccessGrid", "Intelligent campus vehicle entry-exit management, ANPR, and parking telemetry.", "React", LEARN, "React  ·  ↗ live demo"),
 ]
 
 
